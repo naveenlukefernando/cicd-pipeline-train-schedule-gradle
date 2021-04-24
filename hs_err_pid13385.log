@@ -1,0 +1,79 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 65536 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2795), pid=13385, tid=0x00007f56d2f3d700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_292-b10) (build 1.8.0_292-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.292-b10 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f56e4117800):  JavaThread "C1 CompilerThread1" daemon [_thread_in_vm, id=13394, stack(0x00007f56d2e3e000,0x00007f56d2f3e000)]
+
+Stack: [0x00007f56d2e3e000,0x00007f56d2f3e000],  sp=0x00007f56d2f3bfb0,  free space=1015k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xb65b9d]  VMError::report_and_die()+0x15d
+V  [libjvm.so+0x5082ba]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0xaa
+V  [libjvm.so+0x940ec8]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0xd8
+V  [libjvm.so+0x93871e]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x2e
+V  [libjvm.so+0xb627a4]  VirtualSpace::expand_by(unsigned long, bool)+0x1b4
+V  [libjvm.so+0x61f7ec]  CodeHeap::expand_by(unsigned long)+0x6c
+V  [libjvm.so+0x48f956]  CodeCache::allocate(int, bool)+0x46
+V  [libjvm.so+0x901867]  nmethod::new_nmethod(methodHandle, int, int, CodeOffsets*, int, DebugInformationRecorder*, Dependencies*, CodeBuffer*, int, OopMapSet*, ExceptionHandlerTable*, ImplicitExceptionTable*, AbstractCompiler*, int)+0x1a7
+V  [libjvm.so+0x42c83e]  ciEnv::register_method(ciMethod*, int, CodeOffsets*, int, CodeBuffer*, int, OopMapSet*, ExceptionHandlerTable*, ImplicitExceptionTable*, AbstractCompiler*, int, bool, bool, RTMState)+0x38e
+V  [libjvm.so+0x36dd2b]  Compilation::compile_method()+0x21b
+V  [libjvm.so+0x36e082]  Compilation::Compilation(AbstractCompiler*, ciEnv*, ciMethod*, int, BufferBlob*)+0x252
+V  [libjvm.so+0x36edf7]  Compiler::compile_method(ciEnv*, ciMethod*, int)+0xb7
+V  [libjvm.so+0x4bb652]  CompileBroker::invoke_compiler_on_method(CompileTask*)+0x8c2
+V  [libjvm.so+0x4bc368]  CompileBroker::compiler_thread_loop()+0x4c8
+V  [libjvm.so+0xb0d192]  JavaThread::thread_main_inner()+0x212
+V  [libjvm.so+0x93de52]  java_start(Thread*)+0xf2
+C  [libpthread.so.0+0x7ea5]  start_thread+0xc5
+
+
+Current CompileTask:
+C1: 753536 5251       3       com.google.common.collect.AbstractIndexedListIterator::<init> (21 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f5694226800 JavaThread "Task worker for ':'" [_thread_blocked, id=13637, stack(0x00007f56d112e000,0x00007f56d122f000)]
+  0x00007f56949a9000 JavaThread "Cache worker for Build Output Cleanup Cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/buildOutputCleanup)" [_thread_blocked, id=13636, stack(0x00007f568feff000,0x00007f5690000000)]
+  0x00007f56949a8000 JavaThread "Cache worker for task history cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/4.6/taskHistory)" [_thread_blocked, id=13635, stack(0x00007f56d0077000,0x00007f56d0178000)]
+  0x00007f5694d44800 JavaThread "Build operations" [_thread_blocked, id=13634, stack(0x00007f56bd2bb000,0x00007f56bd3bc000)]
+  0x00007f569419b800 JavaThread "Cache worker for Artifact transforms cache (/home/cloud_user/.gradle/caches/transforms-1)" [_thread_blocked, id=13632, stack(0x00007f56d0178000,0x00007f56d0279000)]
+  0x00007f5694638800 JavaThread "Cache worker for file hash cache (/home/cloud_user/cicd-pipeline-train-schedule-gradle/.gradle/4.6/fileHashes)" [_thread_blocked, id=13630, stack(0x00007f56d0c2b000,0x00007f56d0d2c000)]
+  0x00007f56945f2000 JavaThread "Stdin handler" [_thread_blocked, id=13629, stack(0x00007f56d0279000,0x00007f56d037a000)]
+  0x00007f5694002800 JavaThread "Asynchronous log dispatcher for DefaultDaemonConnection: socket connection from /0:0:0:0:0:0:0:1:45798 to /0:0:0:0:0:0:0:1:46704" [_thread_in_vm, id=13628, stack(0x00007f56d122f000,0x00007f56d1330000)]
+  0x00007f569800c800 JavaThread "Cancel handler" [_thread_blocked, id=13627, stack(0x00007f56d1431000,0x00007f56d1532000)]
+  0x00007f5698006800 JavaThread "Handler for socket connection from /0:0:0:0:0:0:0:1:45798 to /0:0:0:0:0:0:0:1:46704" [_thread_in_native, id=13626, stack(0x00007f56d1732000,0x00007f56d1833000)]
+  0x00007f56b8005800 JavaThread "Exec process Thread 3" [_thread_in_native, id=13584, stack(0x00007f568fbfc000,0x00007f568fcfd000)]
+  0x00007f56b8004000 JavaThread "Exec process Thread 2" [_thread_in_native, id=13583, stack(0x00007f568fcfd000,0x00007f568fdfe000)]
+  0x00007f56b8001800 JavaThread "process reaper" daemon [_thread_in_native, id=13577, stack(0x00007f56d07f2000,0x00007f56d082b000)]
+  0x00007f5694225000 JavaThread "Exec process" [_thread_blocked, id=13575, stack(0x00007f568fdfe000,0x00007f568feff000)]
+  0x00007f5694263000 JavaThread "File lock request listener" [_thread_in_native, id=13408, stack(0x00007f56d0d2c000,0x00007f56d0e2d000)]
+  0x00007f569416e800 JavaThread "Cache worker for file hash cache (/home/cloud_user/.gradle/caches/4.6/fileHashes)" [_thread_blocked, id=13407, stack(0x00007f56d0e2d000,0x00007f56d0f2e000)]
+  0x00007f5698009000 JavaThread "Daemon worker" [_thread_blocked, id=13402, stack(0x00007f56d1330000,0x00007f56d1431000)]
+  0x00007f56a0035800 JavaThread "Daemon" [_thread_blocked, id=13399, stack(0x00007f56d1833000,0x00007f56d1934000)]
+  0x00007f56e50f9800 JavaThread "Daemon periodic checks" [_thread_blocked, id=13398, stack(0x00007f56d1934000,0x00007f56d1a35000)]
+  0x00007f56e50e2000 
